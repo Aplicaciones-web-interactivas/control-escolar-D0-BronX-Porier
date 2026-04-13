@@ -6,91 +6,111 @@
 <?php include '../components/modals/Usuario/editar_usuario_modal.php'; ?>
 <?php include '../components/modals/Usuario/eliminar_usuario_modal.php'; ?>
 
-<div class="min-h-screen bg-gray-300 p-8">
+<div class="flex min-h-screen bg-gray-100">
 
-<h1 class="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
-  <i class="fa-solid fa-users text-blue-600"></i>
-  Gestión de Alumnos
-</h1>
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-white shadow-lg p-6">
+    <h2 class="text-xl font-bold text-blue-600 mb-6">Sistema Escolar</h2>
 
-<!-- BOTÓN CREAR -->
-<button onclick="abrirModalCrear()"
-  class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded mb-6 hover:bg-blue-700 shadow">
-  <i class="fa-solid fa-user-plus"></i>
-  Nuevo Alumno
-</button>
+    <nav class="flex flex-col gap-3 text-gray-700">
 
-<!-- TABLA -->
-<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <a href="../index.php" class="hover:text-blue-600">🏠 Inicio</a>
+      <a href="usuarios.php" class="text-blue-600 font-bold">👨‍🎓 Alumnos</a>
+      <a href="inscripciones.php" class="hover:text-blue-600">📝 Inscripciones</a>
+      <a href="calificaciones.php" class="hover:text-blue-600">📊 Calificaciones</a>
+      <a href="grupos.php" class="hover:text-blue-600">👥 Grupos</a>
+      <a href="horarios.php" class="hover:text-blue-600">⏰ Horarios</a>
+      <a href="materias.php" class="hover:text-blue-600">📚 Materias</a>
 
-  <table class="w-full text-left">
+    </nav>
+  </aside>
 
-    <thead class="bg-gray-200 text-gray-700 uppercase text-xs">
-      <tr>
-        <th class="p-4">ID</th>
-        <th class="p-4">Nombre</th>
-        <th class="p-4">Apellido Paterno</th>
-        <th class="p-4">Apellido Materno</th>
-        <th class="p-4">Edad</th>
-        <th class="p-4">Dirección</th>
-        <th class="p-4 text-center">Acciones</th>
-      </tr>
-    </thead>
+  <!-- CONTENIDO -->
+  <main class="flex-1 p-8 bg-gray-300">
 
-    <tbody class="text-gray-700">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+      <i class="fa-solid fa-users text-blue-600"></i>
+      Gestión de Alumnos
+    </h1>
 
-<?php
-$usuarios = Usuario::obtener($conexion);
-while($u = $usuarios->fetch_assoc()):
-?>
-
-<tr class="border-t hover:bg-gray-100 transition">
-
-  <td class="p-4"><?= $u['id'] ?></td>
-
-  <td class="p-4"><?= $u['nombre'] ?></td>
-
-  <!-- ✅ NUEVOS CAMPOS -->
-  <td class="p-4"><?= $u['apellido_paterno'] ?? '' ?></td>
-  <td class="p-4"><?= $u['apellido_materno'] ?? '' ?></td>
-
-  <td class="p-4"><?= $u['edad'] ?></td>
-
-  <td class="p-4"><?= $u['direccion'] ?></td>
-
-  <td class="p-4 flex justify-center gap-4">
-
-    <!-- EDITAR -->
-    <button 
-      onclick='abrirModalEditar(
-        <?= $u["id"] ?>,
-        <?= json_encode($u["nombre"] ?? "") ?>,
-        <?= json_encode($u["apellido_paterno"] ?? "") ?>,
-        <?= json_encode($u["apellido_materno"] ?? "") ?>,
-        <?= $u["edad"] ?? 0 ?>,
-        <?= json_encode($u["direccion"] ?? "") ?>
-      )'
-      class="text-yellow-500 hover:text-yellow-600 text-lg">
-      <i class="fa-solid fa-pen-to-square"></i>
+    <!-- BOTÓN CREAR -->
+    <button onclick="abrirModalCrear()"
+      class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded mb-6 hover:bg-blue-700 shadow">
+      <i class="fa-solid fa-user-plus"></i>
+      Nuevo Alumno
     </button>
 
-    <!-- ELIMINAR -->
-    <button 
-      onclick="abrirModalEliminar(<?= $u['id'] ?>)"
-      class="text-red-500 hover:text-red-600 text-lg">
-      <i class="fa-solid fa-trash"></i>
-    </button>
+    <!-- TABLA -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
 
-  </td>
+      <table class="w-full text-left">
 
-</tr>
+        <thead class="bg-gray-200 text-gray-700 uppercase text-xs">
+          <tr>
+            <th class="p-4">ID</th>
+            <th class="p-4">Nombre</th>
+            <th class="p-4">Apellido Paterno</th>
+            <th class="p-4">Apellido Materno</th>
+            <th class="p-4">Edad</th>
+            <th class="p-4">Dirección</th>
+            <th class="p-4 text-center">Acciones</th>
+          </tr>
+        </thead>
 
-<?php endwhile; ?>
+        <tbody class="text-gray-700">
 
-    </tbody>
-  </table>
-</div>
+        <?php
+        $usuarios = Usuario::obtener($conexion);
+        while($u = $usuarios->fetch_assoc()):
+        ?>
 
+        <tr class="border-t hover:bg-gray-100 transition">
+
+          <td class="p-4"><?= $u['id'] ?></td>
+
+          <td class="p-4"><?= $u['nombre'] ?></td>
+
+          <td class="p-4"><?= $u['apellido_paterno'] ?? '' ?></td>
+          <td class="p-4"><?= $u['apellido_materno'] ?? '' ?></td>
+
+          <td class="p-4"><?= $u['edad'] ?></td>
+
+          <td class="p-4"><?= $u['direccion'] ?></td>
+
+          <td class="p-4 flex justify-center gap-4">
+
+            <!-- EDITAR -->
+            <button 
+              onclick='abrirModalEditar(
+                <?= $u["id"] ?>,
+                <?= json_encode($u["nombre"] ?? "") ?>,
+                <?= json_encode($u["apellido_paterno"] ?? "") ?>,
+                <?= json_encode($u["apellido_materno"] ?? "") ?>,
+                <?= $u["edad"] ?? 0 ?>,
+                <?= json_encode($u["direccion"] ?? "") ?>
+              )'
+              class="text-yellow-500 hover:text-yellow-600 text-lg">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+
+            <!-- ELIMINAR -->
+            <button 
+              onclick="abrirModalEliminar(<?= $u['id'] ?>)"
+              class="text-red-500 hover:text-red-600 text-lg">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+
+          </td>
+
+        </tr>
+
+        <?php endwhile; ?>
+
+        </tbody>
+      </table>
+    </div>
+
+  </main>
 </div>
 
 <!-- JS -->
