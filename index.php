@@ -33,19 +33,18 @@
         Administra inscripciones, consulta calificaciones y organiza grupos de manera sencilla.
       </p>
 
-          </div>
+    </div>
 
     <!-- Imagen -->
     <div class="relative">
       <div class="bg-orange-100 rounded-3xl p-6 shadow-md">
         <img
           src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
-          class="w-full h-72 object-contain"
-        />
+          class="w-full h-72 object-contain" />
       </div>
 
       <a href="views/crear_grupo.php"
-         class="absolute bottom-4 left-4 bg-orange-500 text-white p-3 rounded-xl shadow-lg hover:bg-orange-600 transition">
+        class="absolute bottom-4 left-4 bg-orange-500 text-white p-3 rounded-xl shadow-lg hover:bg-orange-600 transition">
         <i class="fa-solid fa-gear text-lg"></i>
       </a>
     </div>
@@ -56,16 +55,16 @@
   <section class="px-8 pb-12">
     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
 
-<a href="views/crear_usuario.php"
-   class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
-  <div class="bg-indigo-100 text-indigo-600 p-3 rounded-full mb-3 text-xl">
-    <i class="fa-solid fa-user-plus"></i>
-  </div>
-  <p class="text-sm font-medium text-gray-700">Registrar Alumno</p>
-</a>
+      <a href="views/usuarios.php"
+        class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
+        <div class="bg-indigo-100 text-indigo-600 p-3 rounded-full mb-3">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <p>Alumnos</p>
+      </a>
       <!-- Inscripciones -->
       <a href="views/inscripciones.php"
-         class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
+        class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
         <div class="bg-blue-100 text-blue-600 p-3 rounded-full mb-3 text-xl">
           <i class="fa-solid fa-pen"></i>
         </div>
@@ -74,7 +73,7 @@
 
       <!-- Calificaciones -->
       <a href="views/calificaciones.php"
-         class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
+        class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
         <div class="bg-green-100 text-green-600 p-3 rounded-full mb-3 text-xl">
           <i class="fa-solid fa-chart-line"></i>
         </div>
@@ -82,12 +81,33 @@
       </a>
 
       <!-- Crear grupo -->
-      <a href="views/crear_grupo.php"
-         class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
+      <a href="views/grupos.php"
+        class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
         <div class="bg-purple-100 text-purple-600 p-3 rounded-full mb-3 text-xl">
           <i class="fa-solid fa-users-gear"></i>
         </div>
         <p class="text-sm font-medium text-gray-700">Crear Grupo</p>
+      </a>
+
+      <!-- USUARIOS -->
+      <a href="views/horarios.php"
+        class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
+
+        <div class="bg-orange-100 text-orange-600 p-3 rounded-full mb-3 text-xl">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+
+        <p class="text-sm font-medium text-gray-700">Horarios</p>
+
+      </a>
+
+      <!-- MATERIAS -->
+      <a href="views/materias.php"
+        class="bg-white rounded-2xl p-6 flex flex-col items-center shadow hover:shadow-md hover:scale-105 transition">
+        <div class="bg-green-100 text-green-600 p-3 rounded-full mb-3 text-xl">
+          <i class="fa-solid fa-book"></i>
+        </div>
+        <p class="text-sm font-medium text-gray-700">Materias</p>
       </a>
 
 

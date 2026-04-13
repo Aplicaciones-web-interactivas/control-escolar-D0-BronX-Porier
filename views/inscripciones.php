@@ -1,44 +1,96 @@
 <?php include '../components/header.php'; ?>
 <?php include '../config/db.php'; ?>
+<?php include '../models/Inscripcion.php'; ?>
+<?php include '../components/alerts/alerta_global.php'; ?>
 
-<h1 class="text-2xl font-bold mb-4">Inscripción a Materias</h1>
+<!-- MODAL -->
+<?php include '../components/modals/Inscripcion/crear_inscripcion_modal.php'; ?>
+<?php include '../components/modals/Inscripcion/eliminar_inscripcion_modal.php'; ?>
 
-<div class="bg-white p-6 rounded shadow">
-    <form action="../controllers/inscribir.php" method="POST" class="space-y-3">
+<div class="min-h-screen bg-gray-300 p-8">
 
-        <label>Alumno:</label>
-        <select name="usuario_id" class="w-full p-2 border rounded">
-            <?php
-            $usuarios = $conexion->query("SELECT * FROM usuarios");
-            while ($u = $usuarios->fetch_assoc()) {
-                echo "<option value='{$u['id']}'>{$u['nombre']}</option>";
-            }
-            ?>
-        </select>
+<h1 class="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800">
+  <i class="fa-solid fa-clipboard-list text-blue-600"></i>
+  Gestión de Inscripciones
+</h1>
 
-        <label>Grupo:</label>
-        <select name="grupo_id" class="w-full p-2 border rounded">
-            <?php
-            $grupos = $conexion->query("
-                SELECT g.id, g.nombre, m.nombre AS materia
-                FROM grupos g
-                JOIN materias m ON g.materia_id = m.id
-            ");
-            while ($g = $grupos->fetch_assoc()) {
-                echo "<option value='{$g['id']}'>
-                        {$g['materia']} - Grupo {$g['nombre']}
-                      </option>";
-            }
-            ?>
-        </select>
+<!-- BOTÓN CREAR -->
+<button onclick="abrirModalCrearInscripcion()"
+  class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded mb-6 hover:bg-blue-700 shadow">
+  <i class="fa-solid fa-plus"></i>
+  Nueva Inscripción
+</button>
 
-        <button class="bg-blue-500 text-white px-4 py-2 rounded">
-            Inscribir
-        </button>
-    </form>
+<!-- TABLA -->
+<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+
+  <table class="w-full text-left">
+
+    <thead class="bg-gray-200 text-gray-700 uppercase text-xs">
+      <tr>
+        <th class="p-4">Alumno</th>
+        <th class="p-4">Materia</th>
+        <th class="p-4">Grupo</th>
+        <th class="p-4 text-center">Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody class="text-gray-700">
+
+<?php
+$inscripciones = Inscripcion::obtener($conexion);
+
+while($i = $inscripciones->fetch_assoc()){
+?>
+<tr class="border-t hover:bg-gray-100 transition">
+
+  <td class="p-4"><?= $i['nombre'] . " " . $i['apellido_paterno'] . " " . $i['apellido_materno'] ?></td>
+  <td class="p-4"><?= $i['materia'] ?></td>
+  <td class="p-4"><?= $i['grupo'] ?></td>
+
+  <td class="p-4 flex justify-center gap-4">
+
+    <!-- ELIMINAR -->
+    <button onclick="abrirModalEliminarInscripcion(<?= $i['id'] ?>)"
+      class="text-red-500 hover:text-red-600 text-lg">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+
+  </td>
+
+</tr>
+<?php } ?>
+
+    </tbody>
+  </table>
 </div>
 
-<br>
-<a href="../index.php" class="text-blue-600 underline">Volver</a>
+</div>
 
-<?php include '../components/footer.php'; ?> 
+<!-- JS -->
+<script>
+
+// ===== CREAR =====
+function abrirModalCrearInscripcion(){
+  document.getElementById('modalCrearInscripcion').classList.remove('hidden');
+}
+
+function cerrarModalCrearInscripcion(){
+  document.getElementById('modalCrearInscripcion').classList.add('hidden');
+}
+
+// ===== ELIMINAR =====
+function abrirModalEliminarInscripcion(id){
+  document.getElementById('modalEliminarInscripcion').classList.remove('hidden');
+
+  document.getElementById('btnEliminarInscripcion').href =
+    "../controllers/Inscripcion/inscripcionController.php?accion=eliminar&id=" + id;
+}
+
+function cerrarModalEliminarInscripcion(){
+  document.getElementById('modalEliminarInscripcion').classList.add('hidden');
+}
+
+</script>
+
+<?php include '../components/footer.php'; ?>
